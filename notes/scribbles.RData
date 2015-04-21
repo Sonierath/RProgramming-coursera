@@ -1,0 +1,1241 @@
+> x <- c(0.5, 0.6)
+> x
+[1] 0.5 0.6
+> x <- c(1+0i, 2+4i)
+> x
+[1] 1+0i 2+4i
+> vector("numeric", length=10)
+ [1] 0 0 0 0 0 0 0 0 0 0
+> x
+[1] 1+0i 2+4i
+> y <- c(1.7, "a")
+> y
+[1] "1.7" "a"  
+> y <- c(TRUE, 2)
+> y
+[1] 1 2
+> y <- c("a", TRUE)
+> y
+[1] "a"    "TRUE"
+> y <- c(TRUE, "a")
+> y
+[1] "TRUE" "a"   
+> x <- 0:6
+> class(x)
+[1] "integer"
+> x
+[1] 0 1 2 3 4 5 6
+> as.logical(x)
+[1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+> as.character(x)
+[1] "0" "1" "2" "3" "4" "5" "6"
+> as.numeric(x)
+[1] 0 1 2 3 4 5 6
+> as.complex(x)
+[1] 0+0i 1+0i 2+0i 3+0i 4+0i 5+0i 6+0i
+> x <- list(1, "a", TRUE, 1+4i)
+> x
+[[1]]
+[1] 1
+
+[[2]]
+[1] "a"
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] 1+4i
+
+> m <- matrix(nrow=2, ncol=3)
+> m
+     [,1] [,2] [,3]
+[1,]   NA   NA   NA
+[2,]   NA   NA   NA
+> dim(m)
+[1] 2 3
+> attributes(m)
+$dim
+[1] 2 3
+
+> m <- matrix(1:6, nrow=2, ncol=3)
+> m
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+> m <- 1:10
+> m
+ [1]  1  2  3  4  5  6  7  8  9 10
+> dim(m) <- c(2,5)
+> m
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    3    5    7    9
+[2,]    2    4    6    8   10
+> x <- 1:3
+> y <- 10:12
+> cbind(x, y)
+     x  y
+[1,] 1 10
+[2,] 2 11
+[3,] 3 12
+> rbind(x, y)
+  [,1] [,2] [,3]
+x    1    2    3
+y   10   11   12
+> x <- factor(c("yes", "yes", "no", "yes", "no"))
+> x
+[1] yes yes no  yes no 
+Levels: no yes
+> table(x)
+x
+ no yes 
+  2   3 
+> unclass(x)
+[1] 2 2 1 2 1
+attr(,"levels")
+[1] "no"  "yes"
+> x <- factor(c("yes", "yes", "no", "yes", "no"), levels=c("yes", "no"))
+> x
+[1] yes yes no  yes no 
+Levels: yes no
+> x <- c(1, 2, NA, 10, 3)
+> is.na(x)
+[1] FALSE FALSE  TRUE FALSE FALSE
+> is.nan(x)
+[1] FALSE FALSE FALSE FALSE FALSE
+> x <- c(1, 2, NaN, NA, 4)
+> is.na(4)
+[1] FALSE
+> is.na(x)
+[1] FALSE FALSE  TRUE  TRUE FALSE
+> is.nan(x)
+[1] FALSE FALSE  TRUE FALSE FALSE
+> x <- data.frame(foo=1:4, bar=c(T, T, F, F))
+> x
+  foo   bar
+1   1  TRUE
+2   2  TRUE
+3   3 FALSE
+4   4 FALSE
+> nrow(x)
+[1] 4
+> ncol(x)
+[1] 2
+> x <- 1:3
+> names(x)
+NULL
+> names(x) <- c("ig", "webperf", "perf")
+> x
+     ig webperf    perf 
+      1       2       3 
+> names(x)
+[1] "ig"      "webperf" "perf"   
+> x <- list(ig=1)
+> x
+$ig
+[1] 1
+
+> ig <- matrix(1:4, nrow=2, ncol=2)
+> dimnames(ig) <- list(c("ig1", "ig2"), c("ig3", "ig4"))
+> ig
+    ig3 ig4
+ig1   1   3
+ig2   2   4
+
+> data <- read.table("foo.txt")
+> data <- read.csv("foo.csv")
+
+initial <- read.table("data.txt", nrows=100)
+classes <- sapply(initial, class)
+tabAll <- read.table("data.txt", colClasses=classes)
+
+Calculating memory
+memory = r * c * 8 (bytes)
+(bytes to MB) = memory / 2 to the power of 20
+convert MB to GB
+
+con <- file("foo.txt", "r")
+data <- read.csv(con)
+close(con)
+// is similar to
+data <- read.csv("foo.txt")
+
+con <- gzfile("words.gz")
+x <- readLines(con, 10)
+x
+
+con <- url("http://www.xxx.com", "r")
+x <- readLines(con)
+head(x)
+
+
+> names(data)
+[1] "Ozone"   "Solar.R" "Wind"    "Temp"    "Month"   "Day"    
+> data[c(1:2),]
+  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+> nrow(data)
+[1] 153
+> data[c(nrow(data)-1, nrow(data)),]
+    Ozone Solar.R Wind Temp Month Day
+152    18     131  8.0   76     9  29
+153    20     223 11.5   68     9  30
+> data[47,c("Ozone")]
+[1] 21
+> table(factor(is.na(c(data$Ozone))))
+
+FALSE  TRUE 
+  116    37 
+> table(factor(is.na(c(data$Ozone))))[2]
+TRUE 
+  37 
+> names[2]
+Error in names[2] : object of type 'builtin' is not subsettable
+> names(data)
+[1] "Ozone"   "Solar.R" "Wind"    "Temp"   
+[5] "Month"   "Day"    
+> table(factor(is.na(c(data$Ozone))))
+
+FALSE  TRUE 
+  116    37 
+> mean(data$Ozone[!is.na(data$Ozone)])
+[1] 42.12931
+> good <- complete.cases(data$Ozone, data$Solar.R, data$Temp)
+> mean(data$Solar.R[good & data$Ozone > 31 & data$Temp > 90])
+[1] 212.8
+> good <- complete.cases(data$month, data$Temp)
+> mean(data$Temp[good & data$Month == 6])
+[1] 79.1
+> max(data$Ozone[data$Month==5 & !is.na(data$Ozone)])
+[1] 115
+
+> y <- data.frame(a=1, b="a")
+> dput(y)
+structure(list(a = 1, b = structure(1L, .Label = "a", class = "factor")), .Names = c("a", 
+"b"), row.names = c(NA, -1L), class = "data.frame")
+> dput(y, file="y.R")
+> new.y <- dget("y.R")
+> new.y
+  a b
+1 1 a
+> x <- "ig"
+> y <- data.frame(a=1, b="a")
+> dump(c("x", "y"), file="data.R")
+> rm(x, y)
+> source("data.R")
+> y
+  a b
+1 1 a
+> x
+[1] "ig"
+> x <- c("a", "b", "c")
+> x[1]
+[1] "a"
+> x[2]
+[1] "b"
+> x[1:2]
+[1] "a" "b"
+> x[x > "a"]
+[1] "b" "c"
+> u <- x > "a"
+> u
+[1] FALSE  TRUE  TRUE
+> x[u]
+[1] "b" "c"
+> x <- list(foo=1:4, bar=0.6)
+> x[1]
+$foo
+[1] 1 2 3 4
+
+> x[[1]]
+[1] 1 2 3 4
+> x$bar
+[1] 0.6
+> x[["bar"]]
+[1] 0.6
+> x["bar"]
+$bar
+[1] 0.6
+
+> x <- list(foo=1.4, bar=0.6, baz="ig")
+> x[c(1,3)]
+$foo
+[1] 1.4
+
+$baz
+[1] "ig"
+
+> name <- "IG"
+> x[[name]]
+NULL
+> x$IG
+NULL
+> x <- list(foo=1.4, bar=0.6, baz="ig")
+> name <- "baz"
+> x[[name]]
+[1] "ig"
+> x$name
+NULL
+> x$baz
+[1] "ig"
+> x <- list(a=list(10, 12, 14), b=c(3.14,2.81))
+> x[[c(1,3)]]
+[1] 14
+> x[[1]][[3]]
+[1] 14
+> x[[c(2,1)]]
+[1] 3.14
+> x <- matrix(1:6, 2, 3)
+> x[1,2]
+[1] 3
+> x[2,1]
+[1] 2
+> x[1,]
+[1] 1 3 5
+> x[,2]
+[1] 3 4
+> x <- matrix(1:6, 2, 3)
+> x[1,2]
+[1] 3
+> x[1,2,drop=FALSE]
+     [,1]
+[1,]    3
+> x[1,,drop=FALSE]
+     [,1] [,2] [,3]
+[1,]    1    3    5
+> x <- list(aardvark=1:5)
+> x$a
+[1] 1 2 3 4 5
+> x[["a"]]
+NULL
+> x[["a",exact=FALSE"]]
++ 
++ s
++ ]
++ s;
++ sadf"
+Error: unexpected string constant in:
+"s;
+sadf""
+> x[["a",exact="FALSE"]]
+[1] 1 2 3 4 5
+> x <- c(1,2,NA,4,NA,5)
+> bad <- is.na(x)
+> x[!bad]
+[1] 1 2 4 5
+> x <- c(1,2,NA,4,NA,5)
+> y <- c("a","b",NA,"d",NA,"f")
+> good <- complete.cases(x,y)
+> good
+[1]  TRUE  TRUE FALSE  TRUE FALSE  TRUE
+> x[good]
+[1] 1 2 4 5
+> y[good]
+[1] "a" "b" "d" "f"
+> airquality[1:6,]
+  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+5    NA      NA 14.3   56     5   5
+6    28      NA 14.9   66     5   6
+> good <- complete.cases(airquality)
+> airquality[good,][1:6,]
+  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+7    23     299  8.6   65     5   7
+8    19      99 13.8   59     5   8
+> x <- 1:4, y <- 6:9
+Error: unexpected ',' in "x <- 1:4,"
+> x <- 1:4; y <- 6:9
+> x+y
+[1]  7  9 11 13
+> x>2
+[1] FALSE FALSE  TRUE  TRUE
+> x>=2
+[1] FALSE  TRUE  TRUE  TRUE
+> y==8
+[1] FALSE FALSE  TRUE FALSE
+> x*y
+[1]  6 14 24 36
+> x/y
+[1] 0.1666667 0.2857143 0.3750000 0.4444444
+> x <- matrix(1:4,2,2); y <- matrix(rep(10,4),2,2)
+> x*y ## element wise multiplication
+     [,1] [,2]
+[1,]   10   30
+[2,]   20   40
+> x/y
+     [,1] [,2]
+[1,]  0.1  0.3
+[2,]  0.2  0.4
+> x%*%y ## true matrix multiplication
+     [,1] [,2]
+[1,]   40   40
+[2,]   60   60
+
+
+> x <- c("a", "b", "c", "d")
+> for(i in 1:4) {
++ print(x[i])
++ }
+[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"
+> for (i in seq_along(x)) {
++ print(x[i])
++ }
+[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"
+> for(letter in x) {
++ print(letter)
++ }
+[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"
+> for(i in 1:4)
++ print(x[i])
+[1] "a"
+[1] "b"
+[1] "c"
+[1] "d"
+> x <- matrix(1:6, 2, 3) ## nested for loops
+> for(i in seq_len(nrow(x))) {
++ for(j in seq_len(ncol(x)))
++ {
++ print(x[i,j])
++ }
++ }
+[1] 1
+[1] 3
+[1] 5
+[1] 2
+[1] 4
+[1] 6
+> count <- 0 ## while loop
+> while(count<10) {
++ print(count)
++ count <- count+1
++ }
+[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+> z <- 5 ## while loop with if
+> while(z>=3&&z<=10) {
++ print(z)
++ coin <- random(1,1,0.5)
++ if(coin==1) { ## random walk
++ z <- z+1
++ } else {
++ z <- z-1
++ }
++ }
+[1] 5
+Error: could not find function "random"
+> z <- 5 ## while loop with if
+> while(z>=3&&z<=10) {
++ print(z)
++ coin <- rbinom(1,1,0.5)
++ if(coin==1) { ## random walk
++ z <- z-1
++ }
++ }
+[1] 5
+[1] 5
+[1] 5
+[1] 4
+[1] 3
+> z <- 5 ##while if loop --- correct one
+> while(z>=3&&z<=10) {
++ print(z)
++ coin <- rbinom(1,1,0.5)
++ if(coin==1) { ## random walk
++ z <- z+1
++ } else {
++ z <- z-1
++ }
++ }
+[1] 5
+[1] 6
+[1] 7
+[1] 6
+[1] 5
+[1] 6
+[1] 5
+[1] 6
+[1] 5
+[1] 4
+[1] 5
+[1] 4
+[1] 5
+[1] 6
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 7
+[1] 8
+[1] 9
+[1] 8
+[1] 9
+[1] 8
+[1] 7
+[1] 8
+[1] 9
+[1] 8
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+> x <- 1 ## repeat
+> t <- le-8
+Error: object 'le' not found
+> x0 <- 1
+> tol <- le-8
+Error: object 'le' not found
+> tol <- 8
+> repeat {
++ x1 <- computeEstimate()
++ if(abs(x1-x0)<tol){
++ break
++ } else {
++ x0 <- x1
++ }
++ }
+Error: could not find function "computeEstimate"
+> ## next
+> for(i in 1:100) {
++ if(i<=20) {
++ ## skip the first 20 iterations
++ next
++ }
++ ## do something here
++ }
+
+
+> add2 <- function(x,y) {
++   x+y
++ }
+> 3+5
+[1] 8
+> }
+Error: unexpected '}' in "}"
+> add2 <- function(x,y) {
++   x+y
++ }
+> add2(3,5)
+[1] 8
+> above <- function(x,n) {
++   use <- x>n
++   x[use]
++ }
+> above(x,12)
+Error in above(x, 12) : object 'x' not found
+> above <- function(x,n) {
++   use <- x>n
++   x[use]
++ }
+> x <- 1:20
+> above(x,12)
+[1] 13 14 15 16 17 18 19 20
+> above <- function(x,n=10) {
++   use <- x>n
++   x[use]
++ }
+> above(x)
+ [1] 11 12 13 14 15 16 17 18 19 20
+> columnmean <- function(y) {
++   nc <- ncol(y)
++   means <- numeric(nc)
++   for(i in 1:nc) {
++     means[i] <- mean(y[,i])
++   }
++   means
++ }
+> columnmean(airquality)
+[1]        NA        NA  9.957516
+[4] 77.882353  6.993464 15.803922
+> columnmean <- function(y, removeNA=TRUE) {
++   nc <- ncol(y)
++   means <- numeric(nc)
++   for(i in 1:nc) {
++     means[i] <- mean(y[,i],na.rm=removeNA)
++   }
++   means
++ }
+> columnmean(airquality)
+[1]  42.129310 185.931507   9.957516
+[4]  77.882353   6.993464  15.803922
+> columnmean(airquality, FALSE)
+[1]        NA        NA  9.957516
+[4] 77.882353  6.993464 15.803922
+> columnmean(airquality)
+[1]  42.129310 185.931507   9.957516
+[4]  77.882353   6.993464  15.803922
+
+
+> mydata <- rnorm(100)
+> sd(mydata)
+[1] 1.091391
+> sd(x=mydata)
+[1] 1.091391
+> sd(x=mydata,na.rm=FALSE)
+[1] 1.091391
+> sd(na.rm=FALSE,x=mydata)
+[1] 1.091391
+> sd(na.rm=FALSE,mydata)
+[1] 1.091391
+> args(lm)
+function (formula, data, subset, weights, na.action, method = "qr", 
+    model = TRUE, x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE, 
+    contrasts = NULL, offset, ...) 
+NULL
+> lm(data=mydata,y-x,model=FALSE,1:100)
+Error in stats::model.frame(formula = y - x, data = mydata, subset = 1:100,  : 
+  object 'y' not found
+> lm(data=mydata,x,model=FALSE,1:100)
+Error in stats::model.frame(formula = x, data = mydata, subset = 1:100,  : 
+  object 'x' not found
+> lm(data=mydata,y-x,model=FALSE,1:100)
+Error in stats::model.frame(formula = y - x, data = mydata, subset = 1:100,  : 
+  object 'y' not found
+> args(lm)
+function (formula, data, subset, weights, na.action, method = "qr", 
+    model = TRUE, x = FALSE, y = FALSE, qr = TRUE, singular.ok = TRUE, 
+    contrasts = NULL, offset, ...) 
+NULL
+> x <- 1
+> y <- 2
+> lm(data=mydata,y-x,model=FALSE,1:100)
+Error in formula.default(object, env = baseenv()) : invalid formula
+> mydata <- rnorm(100)
+> lm(data=mydata,y-x,model=FALSE,1:100)
+Error in formula.default(object, env = baseenv()) : invalid formula
+> lm(data=mydata,formula=y-x,model=FALSE,1:100)
+Error in formula.default(object, env = baseenv()) : invalid formula
+> lm(y-x,mydata,1:100,model=FALSE)
+Error in formula.default(object, env = baseenv()) : invalid formula
+> cube <- function(x,n)
++ {
++ x^3
++ }
+> cube(3)
+[1] 27
+> x <- 1:10
+> if(x>5) {
++ x <- 0
++ }
+Warning message:
+In if (x > 5) { :
+  the condition has length > 1 and only the first element will be used
+> f <- function(x) {
++ g <- function(y) {
++ y+z
++ }
++ z <- 4
++ x+g(x)
++ }
+> z <- 10
+> f(3)
+[1] 10
+> x <- 5
+> y <- if(x<3) {
++ NA
++ } else {
++ 10
++ }
+> y
+[1] 10
+> h <- function(x,y=NULL,d=3L) {
++ z <- cbind(x,d)
++ if(!is.null(y))
++ z <- z+y
++ else
++ z <- z+f
++ g <- x+y/z
++ if(d==3L)
++ return(g)
++ g <- g+10
++ g
++ }
+> f
+function(x) {
+g <- function(y) {
+y+z
+}
+z <- 4
+x+g(x)
+}
+> z
+[1] 10
+> d
+Error: object 'd' not found
+> g
+Error: object 'g' not found
+> L
+Error: object 'L' not found
+> z
+[1] 10
+> f <- function(a,b){
++ a^2
++ }
+> f(2)
+[1] 4
+> f <- function(a,b){
++ print(a)
++ print(b)
++ }
+> f(45)
+[1] 45
+Error in print(b) : argument "b" is missing, with no default
+> myplot <- function(x,y,type="1",...) {
++ plot(x,y,type=type,...)
++ }
+> mean
+function (x, ...) 
+UseMethod("mean")
+<bytecode: 0x000000000955be88>
+<environment: namespace:base>
+> args(paste)
+function (..., sep = " ", collapse = NULL) 
+NULL
+> args(cat)
+function (..., file = "", sep = " ", fill = FALSE, labels = NULL, 
+    append = FALSE) 
+NULL
+> paste("a","b",sep=":")
+[1] "a:b"
+> paste("a","b",se=":")
+[1] "a b :"
+> lm <- function(x){x*x}
+> lm
+function(x){x*x}
+> search()
+[1] ".GlobalEnv"        "package:stats"     "package:graphics" 
+[4] "package:grDevices" "package:utils"     "package:datasets" 
+[7] "package:methods"   "Autoloads"         "package:base"     
+> f <- function(x,y){
++ x^2+y/z
++ }
+> f
+function(x,y){
+x^2+y/z
+}
+> x
+[1] 5
+> y
+[1] 10
+> z
+[1] 10
+> make.power <- function(n){
++ pow <- function(x){
++ x^n
++ }
++ pow
++ }
+> cube <- make.power(3)
+> square <- make.power(2)
+> cube(3)
+[1] 27
+> square(3)
+[1] 9
+> ls(environment(cube))
+[1] "n"   "pow"
+> get("n",environment(cube))
+[1] 3
+> ls(environment(square))
+[1] "n"   "pow"
+> get("n",environment(square))
+[1] 2
+> y <- 10
+> f <- function(x){
++ y <- 2
++ y*2+g(x)
++ }
+> g <- function(x){
++ x*y
++ }
+> f(3)
+[1] 34
+> g <- function(x){
++ a <- 3
++ x+a+y
++ }
+> g(2)
+[1] 15
+> y <- 3
+> g(2)
+[1] 8
+> make.NegLogLik <- function(data, fixed=c(FALSE,FALSE)){
++ params <- fixed
++ function(p){
++ params[!fixed] <- p
++ mu <- params[1]
++ sigma <- params[2]
++ a <- -0.5*length(data)*log(2*pi*sigma*2)
++ b <- -0.5*sum((data-mu)^2)/(sigma^2)
++ -(a+b)
++ }
++ }
+> set.seed(1);normals <- rnorm(100,1,2)
+> nLL <- make.NegLogLik(normals)
+> nLL
+function(p){
+params[!fixed] <- p
+mu <- params[1]
+sigma <- params[2]
+a <- -0.5*length(data)*log(2*pi*sigma*2)
+b <- -0.5*sum((data-mu)^2)/(sigma^2)
+-(a+b)
+}
+<environment: 0x00000000095883d0>
+> ls(environment(nLL))
+[1] "data"   "fixed"  "params"
+> optim(c(mu=0,sigma=1),nLL)$par
+      mu    sigma 
+1.217666 2.527922 
+> nLL <- make.NegLogLik(normals,c(FALSE,2))
+> optimize(nLL,c(-1,3))$minimum
+[1] 1.217775
+> nLL <- make.NegLogLik(normals,c(1,FALSE))
+> optimize(nLL,c(le-6,10))$minimum
+Error in optimize(nLL, c(le - 6, 10)) : object 'le' not found
+> nLL <- make.NegLogLik(normals,c(1,FALSE))
+> x <- seq(1.7,1.9,len=100)
+> y <- sapply(x,nLL)
+> plot(x,exp(-(y-min(y))),type="l")
+> ##
+> nLL <- make.NegLogLike(normals,c(FALSE,2))
+Error: could not find function "make.NegLogLike"
+> nLL <- make.NegLogLik(normals,c(FALSE,2))
+> x <- seq(0.5,1.5,len=100)
+> y <- sapply(x,nLL)
+> plot(x,exp(-(y-min(y))),type="l")
+> ##
+> optimize(nLL,c(1e-6,10))$minimum
+[1] 1.217775
+> x <- as.Date("1991-05-14")
+> x
+[1] "1991-05-14"
+> unclass(x)
+[1] 7803
+> unclass(as.Date("1991-05-14"))
+[1] 7803
+> x <- Sys.time()
+> x
+[1] "2015-04-16 00:08:09 IST"
+> p <- as.POSIXlt(x)
+> names(unclass(p))
+ [1] "sec"    "min"    "hour"   "mday"   "mon"    "year"   "wday"  
+ [8] "yday"   "isdst"  "zone"   "gmtoff"
+> p$sec
+[1] 9.349821
+> datestring <- c("April 16, 2015 00:12", "April 16, 2015 00:13")
+> x <- strptime(datestring, "%B %d, %Y %H:%M")
+> x
+[1] "2015-04-16 00:12:00 IST" "2015-04-16 00:13:00 IST"
+> datestring <- c("April 16, 2015 00:12:00", "April 16, 2015 00:13:00")
+> x
+[1] "2015-04-16 00:12:00 IST" "2015-04-16 00:13:00 IST"
+> class(x)
+[1] "POSIXlt" "POSIXt" 
+> ##
+> x <- as.Date("1991-05-14")
+> y <- strptime("May 14 2015 20:30:00", "%d %b %Y %H:%M:%S")
+> x-y
+Error in x - y : non-numeric argument to binary operator
+In addition: Warning message:
+Incompatible methods ("-.Date", "-.POSIXt") for "-" 
+> x <- as.POSIXlt(x)
+> x-y
+Time difference of NA secs
+> y-x
+Time difference of NA secs
+> y <- strptime("May 14 1990 20:30:00", "%d %b %Y %H:%M:%S")
+> x-y
+Time difference of NA secs
+> x <- as.Date("1991-05-14")
+> y <- strptime("May 14 1990 20:30:00", "%d %b %Y %H:%M:%S")
+> x <- as.POSIXlt(x)
+> x-y
+Time difference of NA secs
+> x <- as.Date("2015-05-14")
+> y <- strptime("May 14 1991 20:30:00", "%d %b %Y %H:%M:%S")
+> x <- as.POSIXlt(x)
+> x-y
+Time difference of NA secs
+> x <- as.Date("2015-05-14")
+> x <- as.Date("2014-05-14")
+> y <- strptime("May 14 1991 20:30:00", "%d %b %Y %H:%M:%S")
+> x <- as.POSIXlt(x)
+> x-y
+Time difference of NA secs
+> x <- as.Date("2014-05-14")
+> y <- strptime("May 14 2013 20:30:00", "%d %b %Y %H:%M:%S")
+> x <- as.POSIXlt(x)
+> x-y
+Time difference of NA secs
+> x <- as.Date("2012-03-01") y <- as.Date("2012-02-28")
+Error: unexpected symbol in "x <- as.Date("2012-03-01") y"
+> x <- as.Date("2012-03-01"); y <- as.Date("2012-02-28")
+> x-y
+Time difference of 2 days
+> x <- as.POSIXct("2012-10-25 01:00:00")
+> y <- as.POSIXct("2012-10-25 06:00:00", tz="GMT")
+> y-x
+Time difference of 10.5 hours
+
+
+> function(X,FUN,...) {
++ FUN <- match.fun(FUN)
++ if(!is.vector(X)||is.object(X))
++ X <- as.list(X)
++ .Internal(lapply(X,FUN))
++ }
+function(X,FUN,...) {
+FUN <- match.fun(FUN)
+if(!is.vector(X)||is.object(X))
+X <- as.list(X)
+.Internal(lapply(X,FUN))
+}
+> lapply
+function (X, FUN, ...) 
+{
+    FUN <- match.fun(FUN)
+    if (!is.vector(X) || is.object(X)) 
+        X <- as.list(X)
+    .Internal(lapply(X, FUN))
+}
+<bytecode: 0x000000000775cc58>
+<environment: namespace:base>
+> x <- list(a=1:5,b=rnorm(10))
+> lapply(x,mean)
+$a
+[1] 3
+
+$b
+[1] 0.4359705
+
+> x <- list(a=1:4,b=rnorm(10),c=rnorm(20,1),d=rnorm(100,5))
+> lapply(x,mean)
+$a
+[1] 2.5
+
+$b
+[1] 0.4837601
+
+$c
+[1] 0.6246049
+
+$d
+[1] 5.067411
+
+> x <- 1:4
+> lapply(x,runif)
+[[1]]
+[1] 0.4296134
+
+[[2]]
+[1] 0.4902876 0.8173761
+
+[[3]]
+[1] 0.1362415 0.4164301 0.8658500
+
+[[4]]
+[1] 0.3986951 0.8452986 0.4611787 0.3995855
+
+> x <- list(a=matrix(1:4,2,2),b=matrix(1:6,3,2))
+> x
+$a
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+$b
+     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6
+
+> lapply(x,function(elt) elt[,1])
+$a
+[1] 1 2
+
+$b
+[1] 1 2 3
+
+> x <- list(a=1:4,b=rnorm(10),c=rnorm(20,1),d=rnorm(100,5))
+> lapply(x,mean)
+$a
+[1] 2.5
+
+$b
+[1] -0.6310888
+
+$c
+[1] 0.9143964
+
+$d
+[1] 4.981269
+
+> sapply(x,mean)
+         a          b          c          d 
+ 2.5000000 -0.6310888  0.9143964  4.9812694 
+> mean(x)
+[1] NA
+Warning message:
+In mean.default(x) : argument is not numeric or logical: returning NA
+> str(apply)
+function (X, MARGIN, FUN, ...)  
+> x <- matrix(rnorm(200),20,10)
+> apply(x,2,mean)
+ [1] -0.21179596 -0.04973893 -0.24998471 -0.45467705  0.32040119  0.32323337
+ [7]  0.24457016 -0.15732827  0.13966206 -0.32999206
+> apply(x,1,sum)
+ [1] -5.4343453 -2.1401669  4.3870410  1.8007801 -3.2888863  0.1175035
+ [7]  2.2142531  4.1867099  0.7919920 -1.4326280  3.9085252 -4.1830082
+[13]  0.7335224 -2.0450221  1.9498745 -1.5154174 -3.8671930 -2.4745290
+[19] -4.5649022  2.3428930
+> x <- matrix(rnorm(200),20,10)
+> apply(x,1,quantile,probs=c(0.25,0.75))
+          [,1]       [,2]       [,3]       [,4]       [,5]       [,6]
+25% -0.8825816 -1.3884700 -0.9889468 -0.5820376 -0.7050662 -0.1790056
+75%  0.9189335  0.4403433 -0.1192160  0.8884894  0.6046884  1.0058149
+          [,7]       [,8]       [,9]      [,10]      [,11]      [,12]
+25% -1.0676130 -0.6517194 -0.4400408 -0.4984891 -0.4351645 -0.8274054
+75%  0.6203668  0.7747862  1.0749556  0.7473207  0.7563487  0.6142291
+         [,13]      [,14]      [,15]      [,16]      [,17]      [,18]
+25% -0.6321956 -0.9370999 -0.9516465 -0.9422324 -0.3645910 -1.2805976
+75%  0.6528548  0.5570413  0.3904800  0.7531703  0.2882048  0.2350269
+         [,19]      [,20]
+25% -0.9614906 -0.7228481
+75%  0.6990007  0.5851358
+> a <- array(rnorm(2*2*10),c(2,2,10))
+> apply(a,c(1,2),mean)
+           [,1]        [,2]
+[1,] -0.1493684 -0.25188698
+[2,] -0.1550059 -0.04271916
+> rowMeans(a,dims=2)
+           [,1]        [,2]
+[1,] -0.1493684 -0.25188698
+[2,] -0.1550059 -0.04271916
+> str(mapply)
+function (FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAMES = TRUE)  
+> list(rep(1,4),rep(2,3),rep(3,2),rep(4,1))
+[[1]]
+[1] 1 1 1 1
+
+[[2]]
+[1] 2 2 2
+
+[[3]]
+[1] 3 3
+
+[[4]]
+[1] 4
+
+> mapply(rep,1:4,4:1)
+[[1]]
+[1] 1 1 1 1
+
+[[2]]
+[1] 2 2 2
+
+[[3]]
+[1] 3 3
+
+[[4]]
+[1] 4
+
+> noise <- function(n,mean,sd) {
++ rnorm(n,mean,sd)
++ }
+> noise(5,1,2)
+[1]  2.6397703  6.8406181  1.9093636 -0.4381022 -0.5350427
+> noise(1:5,1:5,2)
+[1] 0.8573667 0.3452989 1.2267960 4.9056588 6.8198921
+> mapply(noise,1:5,1:5,2)
+[[1]]
+[1] 1.04425
+
+[[2]]
+[1] 2.9425508 0.5712549
+
+[[3]]
+[1] 2.692215 1.995338 7.045273
+
+[[4]]
+[1] 4.495910 2.388857 2.816912 5.337966
+
+[[5]]
+[1] 7.1183452 8.5173737 4.5349557 0.2847143 5.6227634
+
+> list(noise(1,1,2),noise(2,2,2),noise(3,3,2),noise(4,4,2),noise(5,5,2))
+[[1]]
+[1] 4.011039
+
+[[2]]
+[1] -1.7081509  0.8532675
+
+[[3]]
+[1] 0.1122418 2.3007392 1.8276826
+
+[[4]]
+[1] 5.537370 5.293955 5.879115 4.730099
+
+[[5]]
+[1] 4.0621341 0.4757759 3.8619632 7.6084128 5.4868075
+
+> str(tapply)
+function (X, INDEX, FUN = NULL, ..., simplify = TRUE)  
+> x <- c(rnorm(10),runif(10),rnorm(10,1))
+> f <- gl(3,10)
+> f
+ [1] 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3
+Levels: 1 2 3
+> tapply(x,f,mean)
+        1         2         3 
+0.2238893 0.3734568 0.8152262 
+> tapply(x,f,mean,simplify=FALSE)
+$`1`
+[1] 0.2238893
+
+$`2`
+[1] 0.3734568
+
+$`3`
+[1] 0.8152262
+
+> tapply(x,f,range)
+$`1`
+[1] -1.190014  2.118440
+
+$`2`
+[1] 0.006320891 0.673580502
+
+$`3`
+[1] -0.8307142  2.6213951
+
+> str(split)
+function (x, f, drop = FALSE, ...)  
+> x <- c(rnorm(10),runif(10),rnorm(10,1))
+> f <- gl(3,10)
+> split(x,f)
+$`1`
+ [1]  0.3682362 -1.0024275  1.3350727  0.7283247  0.2844273 -0.3065725
+ [7] -0.7300539  0.4314974  0.5515318 -0.4570915
+
+$`2`
+ [1] 0.9378502 0.3277853 0.4128051 0.6826264 0.9705041 0.2981152 0.2339745
+ [8] 0.9495712 0.8826845 0.5322920
+
+$`3`
+ [1]  0.8574300  0.3236682  0.2363045 -0.3571181 -0.9474179  1.1468373
+ [7]  1.5758828  1.7694474 -0.2059487  0.2938117
+
+> lapply(split(x,f),mean)
+$`1`
+[1] 0.1202945
+
+$`2`
+[1] 0.6228208
+
+$`3`
+[1] 0.4692897
+
+> library(datasets)
+> head(airquality)
+  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+5    NA      NA 14.3   56     5   5
+6    28      NA 14.9   66     5   6
+> s <- aplit(airquality,airquality$month)
+Error: could not find function "aplit"
+> s <- split(airquality,airquality$month)
+Error in split.default(x = seq_len(nrow(x)), f = f, drop = drop, ...) : 
+  group length is 0 but data length > 0
+> s <- split(airquality,airquality$Month)
+> lapply(s,function(x) colMeans(x[,c("Ozone", "Solar.R", "Wind")]))
+$`5`
+   Ozone  Solar.R     Wind 
+      NA       NA 11.62258 
+
+$`6`
+    Ozone   Solar.R      Wind 
+       NA 190.16667  10.26667 
+
+$`7`
+     Ozone    Solar.R       Wind 
+        NA 216.483871   8.941935 
+
+$`8`
+   Ozone  Solar.R     Wind 
+      NA       NA 8.793548 
+
+$`9`
+   Ozone  Solar.R     Wind 
+      NA 167.4333  10.1800 
+
+> sapply(s,function(x) colMeans[x[,c("Ozone","Solar.R","Wind")]))
+Error: unexpected ')' in "sapply(s,function(x) colMeans[x[,c("Ozone","Solar.R","Wind")])"
+> sapply(s,function(x) colMeans(x[,c("Ozone","Solar.R","Wind")]))
+               5         6          7        8        9
+Ozone         NA        NA         NA       NA       NA
+Solar.R       NA 190.16667 216.483871       NA 167.4333
+Wind    11.62258  10.26667   8.941935 8.793548  10.1800
+> sapply(s,function(x) colMeans(x[,c("Ozone","Solar.R","Wind")],na.rm=TRUE))
+                5         6          7          8         9
+Ozone    23.61538  29.44444  59.115385  59.961538  31.44828
+Solar.R 181.29630 190.16667 216.483871 171.857143 167.43333
+Wind     11.62258  10.26667   8.941935   8.793548  10.18000
+> x <- rnorm(10)
+> f1 <- gl(2,5)
+> f2 <- gl(5,2)
+> f1
+ [1] 1 1 1 1 1 2 2 2 2 2
+Levels: 1 2
+> f2
+ [1] 1 1 2 2 3 3 4 4 5 5
+Levels: 1 2 3 4 5
+> interaction(f1,f2)
+ [1] 1.1 1.1 1.2 1.2 1.3 2.3 2.4 2.4 2.5 2.5
+Levels: 1.1 2.1 1.2 2.2 1.3 2.3 1.4 2.4 1.5 2.5
+> str(split(x,list(f1,f2)))
+List of 10
+ $ 1.1: num [1:2] 0.697 0.313
+ $ 2.1: num(0) 
+ $ 1.2: num [1:2] -0.805 0.535
+ $ 2.2: num(0) 
+ $ 1.3: num -0.0212
+ $ 2.3: num -0.255
+ $ 1.4: num(0) 
+ $ 2.4: num [1:2] 1.597 0.966
+ $ 1.5: num(0) 
+ $ 2.5: num [1:2] 0.49 1.39
+> str(split(x,list(f1,f2),drop=TRUE))
+List of 6
+ $ 1.1: num [1:2] 0.697 0.313
+ $ 1.2: num [1:2] -0.805 0.535
+ $ 1.3: num -0.0212
+ $ 2.3: num -0.255
+ $ 2.4: num [1:2] 1.597 0.966
+ $ 2.5: num [1:2] 0.49 1.39
