@@ -1,2 +1,8 @@
 [1] UCI machine learning datasets:-
 http://archive.ics.uci.edu/ml/datasets.html
+
+[2] ggplot2
+http://varianceexplained.org/r/teach_ggplot2_to_beginners/
+
+[3] University of Pennsylvania
+http://www.ling.upenn.edu/~joseff/rstudy/index.html
