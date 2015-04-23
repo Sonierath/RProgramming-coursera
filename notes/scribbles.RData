@@ -1540,3 +1540,40 @@ List of 5
  [1]  2  3  4  1  9  5 10  8  6  7
 > sample(1:10, replace=TRUE)
  [1] 2 9 7 8 2 8 5 9 7 8
+
+
+ > system.time(readLines("http://www.windowsgeekpro.in"))
+   user  system elapsed 
+   0.01    0.03    4.88 
+Warning message:
+In readLines("http://www.windowsgeekpro.in") :
+  incomplete final line found on 'http://www.windowsgeekpro.in'
+> system.time(readLines("http://www.igvita.com"))
+Error in file(con, "r") : cannot open the connection
+Timing stopped at: 0 0 3.45 
+> system.time(readLines("http://www.jhsph.edu"))
+   user  system elapsed 
+   0.03    0.00    5.15 
+> ## From the above syntaxes, the "elapsed time > user time"
+> ## now... comes the next...
+> ## Elapsed time < user time
+> meow <- function(n) {
++ i <- 1:n
++ 1/outer(i-1,i,"+")
++ }
+> x <- meow(1000)
+> system.time(svd(x))
+   user  system elapsed 
+   4.43    0.01    4.69 
+> ##
+> ## timing longer expressions
+> system.time({
++ n <- 1000
++ r <- numeric(n)
++ for(i in 1:n) {
++ x <- rnorm(n)
++ r[i] <- mean(x)
++ }
++ })
+   user  system elapsed 
+   0.17    0.00    0.17 
