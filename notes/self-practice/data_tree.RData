@@ -1,0 +1,22 @@
+> ## resources: http://ipub.ch/id3-with-data-tree/
+> install.packages("data.tree")
+> library(data.tree)
+> data(mushroom)
+> table(mushroom[,c('color','edibility')])
+       edibility
+color   edible toxic
+  brown      2     0
+  green      1     0
+  red        1     1
+> table(mushroom[,c('points','edibility')])
+      edibility
+points edible toxic
+   no       3     0
+   yes      1     1
+> Node$new("mushroom")
+  levelName
+1  mushroom
+> tree <- Node$new("mushroom")
+> print(tree,"feature","obsCount")
+  levelName feature obsCount
+1  mushroom      NA       NA
