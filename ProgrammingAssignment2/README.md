@@ -11,4 +11,4 @@ Online compilation:- <br>
 ideone --> <a href="https://ideone.com/QJJQlv">click here</a> [Success] <br>
 <br>
 <br>
-Score:- Pending
+Score:- 12/12
